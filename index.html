@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Creator Recruitment – Apply Now</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --lime:    #CAFF4A;
+      --black:   #0E0E0E;
+      --white:   #FAFAF5;
+      --grey:    #F2F2EC;
+      --mid:     #B8B8B0;
+      --dark:    #2A2A28;
+      --radius:  14px;
+      --line-w:  3px;
+      --speed:   0.38s;
+    }
+
+    /* ─── RESET ───────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE OVERLAY ──────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    /* ─── WRAPPER ─────────────────────────────────────────────── */
+    .app {
+      position: relative; z-index: 1;
+      max-width: 480px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      display: flex; flex-direction: column;
+    }
+
+    /* ─── HERO HEADER ─────────────────────────────────────────── */
+    .hero {
+      background: var(--black);
+      padding: 40px 24px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero__squiggle {
+      position: absolute;
+      top: -20px; right: -30px;
+      width: 220px;
+      opacity: 0.18;
+    }
+    .hero__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--lime);
+      color: var(--black);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 18px;
+    }
+    .hero__tag-dot {
+      width: 6px; height: 6px;
+      background: var(--black);
+      border-radius: 50%;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.6; }
+    }
+    .hero__title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(28px, 8vw, 38px);
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .hero__title em {
+      font-style: normal;
+      color: var(--lime);
+    }
+    .hero__sub {
+      font-size: 13.5px;
+      color: #888880;
+      line-height: 1.6;
+      max-width: 320px;
+    }
+
+    /* ─── PROGRESS BAR ────────────────────────────────────────── */
+    .progress-wrap {
+      background: var(--black);
+      padding: 0 24px 22px;
+    }
+    .progress-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 8px;
+    }
+    .progress-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #666660;
+    }
+    .progress-count {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--lime);
+    }
+    .progress-track {
+      height: 4px;
+      background: #2A2A28;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--lime);
+      border-radius: 4px;
+      transition: width var(--speed) cubic-bezier(0.4, 0, 0.2, 1);
+      width: 14.28%;
+    }
+
+    /* ─── STEPS NAV DOTS ─────────────────────────────────────── */
+    .steps-nav {
+      display: flex; gap: 6px; align-items: center;
+      padding: 14px 24px;
+      background: var(--black);
+      border-bottom: 1px solid #1A1A18;
+    }
+    .step-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #333330;
+      transition: all var(--speed) ease;
+      cursor: default;
+    }
+    .step-dot.done  { background: #4A7A00; }
+    .step-dot.active { background: var(--lime); width: 24px; border-radius: 4px; }
+
+    /* ─── FORM BODY ───────────────────────────────────────────── */
+    .form-body {
+      flex: 1;
+      padding: 28px 24px 120px;
+    }
+
+    /* Section wrapper — animated */
+    .section-pane {
+      display: none;
+      animation: slideIn var(--speed) cubic-bezier(0.35, 0, 0.2, 1) both;
+    }
+    .section-pane.active { display: block; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(24px); }
+      to   { opacity: 1; transform: translateX(0);    }
+    }
+    @keyframes slideOut {
+      from { opacity: 1; transform: translateX(0);    }
+      to   { opacity: 0; transform: translateX(-24px); }
+    }
+
+    /* Section header */
+    .section-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 6px;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      line-height: 1.15;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+    .section-title span { color: #3A7A00; }
+    .section-desc {
+      font-size: 13px;
+      color: #767670;
+      line-height: 1.6;
+      margin-bottom: 26px;
+    }
+
+    /* ─── FIELD ──────────────────────────────────────────────── */
+    .field { margin-bottom: 20px; }
+    .field label {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 12.5px;
+      letter-spacing: 0.04em;
+      color: var(--dark);
+      margin-bottom: 7px;
+    }
+    .field label .req { color: var(--lime); margin-left: 2px; }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      background: var(--grey);
+      border: 2px solid transparent;
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--black);
+      outline: none;
+      transition: border-color var(--speed) ease, background var(--speed) ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .field textarea {
+      resize: none;
+      min-height: 110px;
+      line-height: 1.55;
+    }
+    .field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23888' d='M5 7l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 18px;
+      padding-right: 40px;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--lime);
+      background: #fff;
+    }
+    .field input::placeholder,
+    .field textarea::placeholder { color: #AEAEAA; }
+
+    /* Hint */
+    .field-hint {
+      font-size: 12px;
+      color: #A0A09A;
+      margin-top: 5px;
+      line-height: 1.5;
+    }
+
+    /* ─── RADIO / CHOICE BUTTONS ─────────────────────────────── */
+    .choices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 2px;
+    }
+    .choices.single { grid-template-columns: 1fr; }
+    .choice-btn {
+      background: var(--grey);
+      border: 2px solid transparent;
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--dark);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.22s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .choice-btn:active { transform: scale(0.97); }
+    .choice-btn.selected {
+      background: var(--black);
+      border-color: var(--lime);
+      color: var(--lime);
+    }
+    .choice-btn .emoji { display: block; font-size: 22px; margin-bottom: 4px; }
+
+    /* ─── CONDITIONAL BLOCK ─────────────────────────────────── */
+    .cond-block {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.3s ease,
+                  margin 0.3s ease;
+      margin-top: 0;
+    }
+    .cond-block.visible {
+      max-height: 600px;
+      opacity: 1;
+      margin-top: 16px;
+    }
+    .cond-inner {
+      background: var(--grey);
+      border-radius: var(--radius);
+      padding: 18px 16px;
+      border-left: 3px solid var(--lime);
+    }
+    .cond-inner .field:last-child { margin-bottom: 0; }
+
+    /* ─── VIDEO UPLOAD ZONE ─────────────────────────────────── */
+    .upload-zone {
+      border: 2px dashed #D0D0C8;
+      border-radius: var(--radius);
+      padding: 28px 20px;
+      text-align: center;
+      background: var(--grey);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .upload-zone:hover, .upload-zone.drag { border-color: var(--lime); background: #f0fadf; }
+    .upload-icon {
+      width: 48px; height: 48px;
+      background: var(--lime);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 22px;
+    }
+    .upload-zone h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .upload-zone p {
+      font-size: 12px;
+      color: #909090;
+      line-height: 1.5;
+    }
+    .upload-zone input[type="file"] {
+      position: absolute; inset: 0;
+      opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+
+    /* OR divider */
+    .or-divider {
+      display: flex; align-items: center; gap: 10px;
+      margin: 16px 0;
+    }
+    .or-divider::before, .or-divider::after {
+      content: ''; flex: 1;
+      height: 1px; background: #E0E0D8;
+    }
+    .or-divider span {
+      font-size: 11px; font-weight: 600;
+      color: #AEAEAA; letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ─── TASK HIGHLIGHT BOX ─────────────────────────────────── */
+    .task-box {
+      background: var(--black);
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 20px 18px;
+      margin-bottom: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .task-box::before {
+      content: '';
+      position: absolute; top: -30px; right: -30px;
+      width: 120px; height: 120px;
+      background: var(--lime);
+      border-radius: 50%;
+      opacity: 0.12;
+    }
+    .task-box h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 13px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--lime); margin-bottom: 10px;
+    }
+    .task-box ul {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 7px;
+    }
+    .task-box ul li {
+      font-size: 13.5px;
+      line-height: 1.5;
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .task-box ul li::before {
+      content: '→';
+      color: var(--lime);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ─── SECTION SQUIGGLES ─────────────────────────────────── */
+    .squiggle-divider {
+      display: block;
+      width: 60px;
+      height: 20px;
+      margin-bottom: 20px;
+      overflow: visible;
+    }
+
+    /* ─── FOOTER NAV ─────────────────────────────────────────── */
+    .form-footer {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 24px 32px;
+      background: linear-gradient(to top, var(--white) 70%, transparent);
+    }
+    .nav-row {
+      display: flex; gap: 10px; max-width: 480px; margin: 0 auto;
+    }
+    .btn {
+      flex: 1;
+      height: 54px;
+      border: none; border-radius: var(--radius);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-back {
+      background: var(--grey);
+      color: var(--dark);
+      flex: 0 0 54px;
+    }
+    .btn-back svg { width: 18px; height: 18px; }
+
+    .btn-next {
+      background: var(--black);
+      color: var(--lime);
+    }
+    .btn-submit {
+      background: var(--lime);
+      color: var(--black);
+    }
+    .btn-next:hover { background: #1A1A1A; }
+    .btn-submit:hover { background: #BFEF40; }
+
+    /* ─── SUCCESS SCREEN ─────────────────────────────────────── */
+    #success-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+      min-height: 100dvh;
+    }
+    #success-screen.show { display: flex; }
+    .success-icon {
+      width: 80px; height: 80px;
+      background: var(--lime);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px;
+      margin-bottom: 24px;
+      animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    @keyframes pop {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .success-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 28px;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .success-sub {
+      font-size: 14px; color: #767670;
+      line-height: 1.7; max-width: 280px;
+      margin: 0 auto 30px;
+    }
+    .success-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--grey);
+      border-radius: 100px; padding: 10px 18px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: 13px;
+    }
+    .success-badge::before { content: '✓'; color: #3A7A00; }
+
+    /* ─── VALIDATION ERROR ──────────────────────────────────── */
+    .field-error {
+      font-size: 11.5px; color: #E03A3A;
+      margin-top: 5px; display: none;
+      font-weight: 500;
+    }
+    .field-error.show { display: block; }
+    .field input.invalid,
+    .field select.invalid,
+    .field textarea.invalid {
+      border-color: #E03A3A !important;
+    }
+
+    /* ─── LINK INPUT ROWS ────────────────────────────────────── */
+    .link-row {
+      display: flex; gap: 8px; align-items: center;
+      margin-bottom: 10px;
+    }
+    .link-row input { flex: 1; margin-bottom: 0; }
+    .link-prefix {
+      background: var(--black);
+      color: var(--lime);
+      border-radius: 10px;
+      padding: 12px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: 'Syne', sans-serif;
+      flex-shrink: 0;
+    }
+
+    /* ─── INFO NOTE ──────────────────────────────────────────── */
+    .info-note {
+      background: #F0FAE0;
+      border: 1px solid #C5E88A;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 12.5px;
+      color: #3A6000;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      display: flex; gap: 8px;
+    }
+    .info-note::before { content: 'ⓘ'; flex-shrink: 0; font-size: 14px; }
+
+    /* ─── HOURS SLIDER ───────────────────────────────────────── */
+    .slider-wrap { position: relative; }
+    .slider-val {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 32px;
+      color: var(--black);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .slider-val span { font-size: 16px; font-weight: 400; color: #888; }
+    input[type="range"] {
+      width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 6px;
+      border-radius: 6px;
+      background: linear-gradient(to right, var(--lime) 0%, var(--lime) var(--pct, 30%), #E0E0D8 var(--pct, 30%), #E0E0D8 100%);
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--black);
+      border: 3px solid var(--lime);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    @media (min-width: 481px) {
+      .form-footer { left: 50%; transform: translateX(-50%); width: 480px; border-radius: 0 0 20px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── MAIN APP ───────────────────────────────────────────── -->
+<div class="app" id="app">
+
+  <!-- HERO -->
+  <header class="hero">
+    <svg class="hero__squiggle" viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 180 C40 140 80 160 100 120 C120 80 80 60 110 30 C140 0 180 20 200 10" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <path d="M10 160 C30 120 70 140 90 100 C110 60 70 40 100 10" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    </svg>
+    <div class="hero__tag"><span class="hero__tag-dot"></span> Now Recruiting</div>
+    <h1 class="hero__title">Become a<br /><em>Content Creator.</em></h1>
+    <p class="hero__sub">We're looking for students with the spark — no experience needed, just the right energy.</p>
+  </header>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-header">
+      <span class="progress-label">Your progress</span>
+      <span class="progress-count" id="prog-count">Step 1 of 7</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- STEP DOTS -->
+  <div class="steps-nav" id="steps-nav">
+    <div class="step-dot active" data-step="0"></div>
+    <div class="step-dot" data-step="1"></div>
+    <div class="step-dot" data-step="2"></div>
+    <div class="step-dot" data-step="3"></div>
+    <div class="step-dot" data-step="4"></div>
+    <div class="step-dot" data-step="5"></div>
+  </div>
+
+  <!-- FORM BODY -->
+  <div class="form-body">
+
+    <!-- ── SECTION 1: Basic Info ─────────────────────────────── -->
+    <div class="section-pane active" id="step-0">
+      <svg class="squiggle-divider" viewBox="0 0 60 20" fill="none">
+        <path d="M2 14 C10 2 18 18 26 10 C34 2 42 18 50 10 C56 4 58 10 60 8" stroke="#CAFF4A" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <p class="section-num">Section 01 / 07</p>
+      <h2 class="section-title">Basic <span>Info.</span></h2>
+      <p class="section-desc">Tell us a bit about yourself — keep it quick.</p>
+
+      <div class="field">
+        <label for="fullname">Full Name <span class="req">*</span></label>
+        <input type="text" id="fullname" placeholder="e.g. Fatima Al-Rashid" autocomplete="name" />
+        <div class="field-error" id="err-fullname">Please enter your full name.</div>
+      </div>
+
+      <div class="field">
+        <label for="age">Age <span class="req">*</span></label>
+        <input type="number" id="age" placeholder="e.g. 20" min="16" max="35" />
+        <div class="field-error" id="err-age">Please enter a valid age.</div>
+      </div>
+
+      <div class="field">
+        <label for="university">University / College <span class="req">*</span></label>
+        <input type="text" id="university" placeholder="e.g. Qatar University" />
+        <div class="field-error" id="err-university">Please enter your university name.</div>
+      </div>
+
+
+      <div class="field">
+        <label for="phone">Phone Number (WhatsApp preferred) <span class="req">*</span></label>
+        <input type="tel" id="phone" placeholder="+974 xxxx xxxx" autocomplete="tel" />
+        <div class="field-error" id="err-phone">Please enter your phone number.</div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 2: Social Media ───────────────────────────── -->
+    <div class="section-pane" id="step-1">
+      <svg class="squiggle-divider" viewBox="0 0 60 20" fill="none">
+        <path d="M2 10 C8 2 16 18 24 10 C32 2 38 16 46 10 C52 4 56 14 60 8" stroke="#CAFF4A" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <p class="section-num">Section 02 / 07</p>
+      <h2 class="section-title">Social <span>Media.</span></h2>
+      <p class="section-desc">Drop your username — that's all we need.</p>
+
+      <div class="info-note">Just type your <strong>@username</strong> — or paste your full profile link if it's easier. Leave blank if you don't have an account.</div>
+
+      <div class="field">
+        <label for="tiktok">TikTok Account</label>
+        <div class="link-row">
+          <span class="link-prefix">TT</span>
+          <input type="text" id="tiktok" placeholder="@yourname" />
+        </div>
+        <div class="field-hint">Just your username (e.g. <strong>@yourname</strong>) or paste the full link.</div>
+      </div>
+
+      <div class="field">
+        <label for="instagram">Instagram Account</label>
+        <div class="link-row">
+          <span class="link-prefix">IG</span>
+          <input type="text" id="instagram" placeholder="@yourname" />
+        </div>
+        <div class="field-hint">Just your username (e.g. <strong>@yourname</strong>) or paste the full link.</div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 3: Interest & Motivation ─────────────────── -->
+    <div class="section-pane" id="step-2">
+      <svg class="squiggle-divider" viewBox="0 0 60 20" fill="none">
+        <path d="M2 16 C12 4 20 18 30 8 C40 -2 48 16 58 6" stroke="#CAFF4A" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <p class="section-num">Section 03 / 07</p>
+      <h2 class="section-title">Your <span>Why.</span></h2>
+      <p class="section-desc">We want to understand what drives you — be honest and be yourself.</p>
+
+      <div class="field">
+        <label for="motivation">Why do you want to become a content creator? <span class="req">*</span></label>
+        <textarea id="motivation" placeholder="Tell us in your own words — what excites you about content creation?"></textarea>
+        <div class="field-error" id="err-motivation">Please share your motivation.</div>
+      </div>
+
+      <div class="field">
+        <label>Are you comfortable showing your face on camera? <span class="req">*</span></label>
+        <div class="choices" style="grid-template-columns: 1fr 1fr;">
+          <button type="button" class="choice-btn" id="camera-yes" onclick="selectChoice('camera', 'yes', this)">
+            <span class="emoji">😎</span> Yes, I'm in!
+          </button>
+          <button type="button" class="choice-btn" id="camera-no" onclick="selectChoice('camera', 'no', this)">
+            <span class="emoji">🙈</span> Not yet
+          </button>
+        </div>
+        <div class="field-error" id="err-camera">Please select an option.</div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 4: Experience ─────────────────────────────── -->
+    <div class="section-pane" id="step-3">
+      <svg class="squiggle-divider" viewBox="0 0 60 20" fill="none">
+        <path d="M2 10 C10 20 18 2 26 12 C34 22 42 4 50 14 C56 20 58 10 60 12" stroke="#CAFF4A" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <p class="section-num">Section 04 / 06</p>
+      <h2 class="section-title">Experience <span>Level.</span></h2>
+      <p class="section-desc">Have you created content before? Either answer is welcome.</p>
+
+      <div class="field">
+        <label>Have you created content before? <span class="req">*</span></label>
+        <div class="choices">
+          <button type="button" class="choice-btn" id="exp-yes" onclick="selectChoice('exp', 'yes', this)">
+            <span class="emoji">🎬</span> Yes!
+          </button>
+          <button type="button" class="choice-btn" id="exp-no" onclick="selectChoice('exp', 'no', this)">
+            <span class="emoji">🌱</span> Not yet
+          </button>
+        </div>
+        <div class="field-error" id="err-exp">Please select an option.</div>
+      </div>
+
+
+    </div>
+
+    <!-- ── SECTION 5: Availability ───────────────────────────── -->
+    <div class="section-pane" id="step-4">
+      <svg class="squiggle-divider" viewBox="0 0 60 20" fill="none">
+        <path d="M2 12 C10 2 18 20 28 10 C38 0 46 18 54 10 C58 6 60 12 60 10" stroke="#CAFF4A" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <p class="section-num">Section 05 / 06</p>
+      <h2 class="section-title">Your <span>Time.</span></h2>
+      <p class="section-desc">We respect your schedule — just be honest about what you can commit to.</p>
+
+      <div class="field">
+        <label>How many hours per week can you dedicate? <span class="req">*</span></label>
+        <div class="slider-val">
+          <span id="hours-display">5</span><span> hrs/week</span>
+        </div>
+        <div class="slider-wrap">
+          <input type="range" id="hours-slider" min="1" max="30" value="5" oninput="updateSlider(this)" />
+        </div>
+        <div class="field-hint" style="text-align:center; margin-top:10px;">Drag to select your commitment level</div>
+      </div>
+
+      <div class="field" style="margin-top:28px;">
+        <label>Can you deliver content within 48–72 hours when assigned? <span class="req">*</span></label>
+        <div class="choices">
+          <button type="button" class="choice-btn" id="avail-yes" onclick="selectChoice('avail', 'yes', this)">
+            <span class="emoji">⚡</span> Yes — always
+          </button>
+          <button type="button" class="choice-btn" id="avail-no" onclick="selectChoice('avail', 'no', this)">
+            <span class="emoji">🤔</span> Depends
+          </button>
+        </div>
+        <div class="field-error" id="err-avail">Please select an option.</div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 6: Final Confirmation ────────────────────── -->
+    <div class="section-pane" id="step-5">
+      <svg class="squiggle-divider" viewBox="0 0 60 20" fill="none">
+        <path d="M2 10 C14 20 20 2 30 12 C40 22 46 4 56 14 C58 16 60 14 60 12" stroke="#CAFF4A" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <p class="section-num">Section 06 / 06</p>
+      <h2 class="section-title">Are You <span>Ready?</span></h2>
+      <p class="section-desc">Last question — and it matters the most. Be real with us.</p>
+
+      <div class="field">
+        <label>Are you serious about becoming a content creator and working with brands? <span class="req">*</span></label>
+        <div class="choices single">
+          <button type="button" class="choice-btn" id="serious-yes" onclick="selectChoice('serious', 'yes', this)">
+            <span class="emoji">🔥</span> 100% — let's go.
+          </button>
+          <button type="button" class="choice-btn" id="serious-no" onclick="selectChoice('serious', 'no', this)">
+            <span class="emoji">💭</span> Still exploring.
+          </button>
+        </div>
+        <div class="field-error" id="err-serious">Please select one option to continue.</div>
+      </div>
+
+      <div class="info-note" style="margin-top: 24px; background:#FFF8E0; border-color:#FFD966; color:#665200;">
+        By submitting, you confirm all information is accurate and you consent to being contacted via WhatsApp.
+      </div>
+    </div>
+
+  </div><!-- /form-body -->
+
+  <!-- FOOTER NAV -->
+  <div class="form-footer" id="form-footer">
+    <div class="nav-row">
+      <button class="btn btn-back" id="btn-back" onclick="prevStep()" style="display:none;" aria-label="Go back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      </button>
+      <button class="btn btn-next" id="btn-next" onclick="nextStep()">Continue →</button>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<!-- SUCCESS SCREEN -->
+<div id="success-screen">
+  <div class="success-icon">🎉</div>
+  <h2 class="success-title" style="font-family:'Syne',sans-serif;">Application<br />Submitted!</h2>
+  <p class="success-sub">We've received your form and will be in touch via WhatsApp within 48 hours. Keep an eye on your phone!</p>
+  <div class="success-badge">You're officially in the pipeline.</div>
+  <svg width="120" height="40" viewBox="0 0 120 40" fill="none" style="margin-top:32px;">
+    <path d="M5 30 C20 10 30 38 45 20 C60 2 70 38 85 20 C100 2 108 30 115 18" stroke="#CAFF4A" stroke-width="3" stroke-linecap="round" fill="none"/>
+  </svg>
+</div>
+
+<script>
+  // ─── STATE ───────────────────────────────────────────────────
+  const totalSteps = 6;
+  let currentStep  = 0;
+  const selections = {};
+
+  // ─── PROGRESS UPDATE ─────────────────────────────────────────
+  function updateProgress() {
+    const pct = ((currentStep + 1) / totalSteps) * 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('prog-count').textContent = `Step ${currentStep + 1} of ${totalSteps}`;
+
+    // Dots
+    document.querySelectorAll('.step-dot').forEach((d, i) => {
+      d.classList.remove('active', 'done');
+      if (i < currentStep) d.classList.add('done');
+      if (i === currentStep) d.classList.add('active');
+    });
+
+    // Back button
+    document.getElementById('btn-back').style.display = currentStep > 0 ? 'flex' : 'none';
+
+    // Submit vs Next
+    const btnNext = document.getElementById('btn-next');
+    if (currentStep === totalSteps - 1) {
+      btnNext.textContent = 'Submit Application ✓';
+      btnNext.classList.remove('btn-next');
+      btnNext.classList.add('btn-submit');
+      btnNext.setAttribute('onclick', 'submitForm()');
+    } else {
+      btnNext.textContent = 'Continue →';
+      btnNext.classList.remove('btn-submit');
+      btnNext.classList.add('btn-next');
+      btnNext.setAttribute('onclick', 'nextStep()');
+    }
+  }
+
+  // ─── NAVIGATE ────────────────────────────────────────────────
+  function showStep(n) {
+    document.querySelectorAll('.section-pane').forEach(p => p.classList.remove('active'));
+    const next = document.getElementById('step-' + n);
+    if (next) {
+      next.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    currentStep = n;
+    updateProgress();
+  }
+
+  function nextStep() {
+    if (!validateStep(currentStep)) return;
+    if (currentStep < totalSteps - 1) showStep(currentStep + 1);
+  }
+
+  function prevStep() {
+    if (currentStep > 0) showStep(currentStep - 1);
+  }
+
+  // ─── VALIDATION ──────────────────────────────────────────────
+  function validateStep(step) {
+    let valid = true;
+
+    const req = (id, errId) => {
+      const el = document.getElementById(id);
+      const err = document.getElementById(errId);
+      if (!el || !el.value.trim()) {
+        if (el) el.classList.add('invalid');
+        if (err) err.classList.add('show');
+        valid = false;
+      } else {
+        if (el) el.classList.remove('invalid');
+        if (err) err.classList.remove('show');
+      }
+    };
+
+    const reqSel = (key, errId) => {
+      if (!selections[key]) {
+        document.getElementById(errId)?.classList.add('show');
+        valid = false;
+      } else {
+        document.getElementById(errId)?.classList.remove('show');
+      }
+    };
+
+    if (step === 0) {
+      req('fullname', 'err-fullname');
+      req('age', 'err-age');
+      req('university', 'err-university');
+      req('phone', 'err-phone');
+    }
+
+    if (step === 2) {
+      req('motivation', 'err-motivation');
+      reqSel('camera', 'err-camera');
+    }
+
+    if (step === 3) {
+      reqSel('exp', 'err-exp');
+    }
+
+    if (step === 4) {
+      reqSel('avail', 'err-avail');
+    }
+
+    if (step === 5) {
+      reqSel('serious', 'err-serious');
+    }
+
+    if (!valid) {
+      // Shake animation hint
+      const pane = document.getElementById('step-' + step);
+      pane.style.animation = 'none';
+      pane.offsetHeight;
+      pane.style.animation = '';
+    }
+
+    return valid;
+  }
+
+  // ─── CHOICE SELECTION ─────────────────────────────────────────
+  function selectChoice(key, val, el) {
+    selections[key] = val;
+
+    // Deselect siblings
+    el.parentElement.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+
+    // Conditional logic
+    if (key === 'exp') {
+      const condYes = document.getElementById('cond-yes');
+      const condNo  = document.getElementById('cond-no');
+      if (val === 'yes') {
+        condYes.classList.add('visible');
+        condNo.classList.remove('visible');
+      } else {
+        condNo.classList.add('visible');
+        condYes.classList.remove('visible');
+      }
+    }
+  }
+
+  // ─── SLIDER ──────────────────────────────────────────────────
+  function updateSlider(el) {
+    const val = el.value;
+    const min = el.min || 0;
+    const max = el.max || 100;
+    const pct = ((val - min) / (max - min)) * 100;
+    el.style.setProperty('--pct', pct + '%');
+    document.getElementById('hours-display').textContent = val;
+  }
+
+  // Initialize slider
+  updateSlider(document.getElementById('hours-slider'));
+
+  // ─── FILE UPLOAD ──────────────────────────────────────────────
+  function handleFileUpload(input) {
+    if (input.files && input.files[0]) {
+      const name = input.files[0].name;
+      const zone = document.getElementById('upload-zone');
+      zone.querySelector('h4').textContent = '✓ ' + name;
+      zone.querySelector('p').textContent  = 'File selected. Ready to submit.';
+      zone.style.borderColor = '#3A7A00';
+      zone.style.background  = '#F0FAE0';
+    }
+  }
+
+  // ─── SUBMIT ───────────────────────────────────────────────────
+  const SHEET_URL = 'https://api.sheetbest.com/sheets/504af205-f2c9-4ff6-8955-f00a78929463';
+
+  async function submitForm() {
+    if (!validateStep(5)) return;
+
+    const btn = document.getElementById('btn-next');
+    btn.textContent = 'Submitting...';
+    btn.disabled = true;
+
+    const data = {
+      Timestamp:   new Date().toLocaleString(),
+      'Full Name': document.getElementById('fullname')?.value   || '',
+      Age:         document.getElementById('age')?.value        || '',
+      University:  document.getElementById('university')?.value || '',
+      Phone:       document.getElementById('phone')?.value      || '',
+      TikTok:      document.getElementById('tiktok')?.value     || '',
+      Instagram:   document.getElementById('instagram')?.value  || '',
+      Motivation:  document.getElementById('motivation')?.value || '',
+      'On Camera': selections['camera']  || '',
+      Experience:  selections['exp']     || '',
+      'Hrs/Week':  document.getElementById('hours-slider')?.value || '',
+      '48-72h':    selections['avail']   || '',
+      Serious:     selections['serious'] || ''
+    };
+
+    try {
+      await fetch(SHEET_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    } catch (err) {
+      console.error('Sheet.best error:', err);
+    }
+
+    const app = document.getElementById('app');
+    const success = document.getElementById('success-screen');
+    app.style.opacity = '0';
+    app.style.transition = 'opacity 0.4s ease';
+    setTimeout(() => {
+      app.style.display = 'none';
+      success.classList.add('show');
+    }, 400);
+  }
+
+  // ─── INIT ──────────────────────────────────────────────────────
+  updateProgress();
+</script>
+
+</body>
+</html>

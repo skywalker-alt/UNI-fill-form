@@ -1,0 +1,13 @@
+{
+  "name": "uni-creator-form",
+  "version": "1.0.0",
+  "description": "Creator recruitment form for university students",
+  "scripts": {
+    "dev": "npx serve . -p 3000",
+    "build": "echo 'Static site - no build step required'",
+    "start": "npx serve . -p 3000"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
