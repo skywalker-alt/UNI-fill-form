@@ -622,6 +622,7 @@
     <div class="step-dot" data-step="3"></div>
     <div class="step-dot" data-step="4"></div>
     <div class="step-dot" data-step="5"></div>
+    <div class="step-dot" data-step="6"></div>
   </div>
 
   <!-- FORM BODY -->
@@ -726,7 +727,7 @@
       <svg class="squiggle-divider" viewBox="0 0 60 20" fill="none">
         <path d="M2 10 C10 20 18 2 26 12 C34 22 42 4 50 14 C56 20 58 10 60 12" stroke="#CAFF4A" stroke-width="2.5" stroke-linecap="round"/>
       </svg>
-      <p class="section-num">Section 04 / 06</p>
+      <p class="section-num">Section 04 / 07</p>
       <h2 class="section-title">Experience <span>Level.</span></h2>
       <p class="section-desc">Have you created content before? Either answer is welcome.</p>
 
@@ -745,13 +746,54 @@
 
 
     </div>
++
++    <!-- ── SECTION 5: Content Niche ──────────────────────────── -->
++    <div class="section-pane" id="step-4">
++      <svg class="squiggle-divider" viewBox="0 0 60 20" fill="none">
++        <path d="M2 18 C10 10 18 20 26 12 C34 4 42 16 50 8 C56 4 58 10 60 8" stroke="#CAFF4A" stroke-width="2.5" stroke-linecap="round"/>
++      </svg>
++      <p class="section-num">Section 05 / 07</p>
++      <h2 class="section-title">Your <span>Niche.</span></h2>
++      <p class="section-desc">What type of content do you specialize in?</p>
++
++      <div class="field">
++        <label>Select your primary niche <span class="req">*</span></label>
++        <div class="choices single">
++          <button type="button" class="choice-btn" onclick="selectChoice('niche', 'Cooking', this)">
++            <span class="emoji">🍳</span> Cooking & Food
++          </button>
++          <button type="button" class="choice-btn" onclick="selectChoice('niche', 'Travel', this)">
++            <span class="emoji">✈️</span> Travel & Adventure
++          </button>
++          <button type="button" class="choice-btn" onclick="selectChoice('niche', 'POV', this)">
++            <span class="emoji">📱</span> POV & Lifestyle
++          </button>
++          <button type="button" class="choice-btn" onclick="selectChoice('niche', 'Short Form', this)">
++            <span class="emoji">⚡</span> Short Form Comedy/Edu
++          </button>
++          <button type="button" class="choice-btn" onclick="selectChoice('niche', 'Other', this)">
++            <span class="emoji">✨</span> Something Else...
++          </button>
++        </div>
++        <div class="field-error" id="err-niche">Please select your content niche.</div>
++      </div>
++
++      <div class="cond-block" id="cond-niche-other">
++        <div class="cond-inner">
++          <div class="field">
++            <label for="niche-other">Tell us more...</label>
++            <input type="text" id="niche-other" placeholder="e.g. Finance, Gaming, Beauty..." />
++          </div>
++        </div>
++      </div>
++    </div>
 
     <!-- ── SECTION 5: Availability ───────────────────────────── -->
-    <div class="section-pane" id="step-4">
+    <div class="section-pane" id="step-5">
       <svg class="squiggle-divider" viewBox="0 0 60 20" fill="none">
         <path d="M2 12 C10 2 18 20 28 10 C38 0 46 18 54 10 C58 6 60 12 60 10" stroke="#CAFF4A" stroke-width="2.5" stroke-linecap="round"/>
       </svg>
-      <p class="section-num">Section 05 / 06</p>
+      <p class="section-num">Section 06 / 07</p>
       <h2 class="section-title">Your <span>Time.</span></h2>
       <p class="section-desc">We respect your schedule — just be honest about what you can commit to.</p>
 
@@ -780,12 +822,12 @@
       </div>
     </div>
 
-    <!-- ── SECTION 6: Final Confirmation ────────────────────── -->
-    <div class="section-pane" id="step-5">
+    <!-- ── SECTION 7: Final Confirmation ────────────────────── -->
+    <div class="section-pane" id="step-6">
       <svg class="squiggle-divider" viewBox="0 0 60 20" fill="none">
         <path d="M2 10 C14 20 20 2 30 12 C40 22 46 4 56 14 C58 16 60 14 60 12" stroke="#CAFF4A" stroke-width="2.5" stroke-linecap="round"/>
       </svg>
-      <p class="section-num">Section 06 / 06</p>
+      <p class="section-num">Section 07 / 07</p>
       <h2 class="section-title">Are You <span>Ready?</span></h2>
       <p class="section-desc">Last question — and it matters the most. Be real with us.</p>
 
@@ -834,7 +876,7 @@
 
 <script>
   // ─── STATE ───────────────────────────────────────────────────
-  const totalSteps = 6;
+  const totalSteps = 7;
   let currentStep  = 0;
   const selections = {};
 
@@ -883,11 +925,24 @@
 
   function nextStep() {
     if (!validateStep(currentStep)) return;
-    if (currentStep < totalSteps - 1) showStep(currentStep + 1);
+    
+    let target = currentStep + 1;
+    // Skip Niche if no experience
+    if (currentStep === 3 && selections['exp'] === 'no') {
+      target = 5;
+    }
+    
+    if (target < totalSteps) showStep(target);
   }
 
   function prevStep() {
-    if (currentStep > 0) showStep(currentStep - 1);
+    let target = currentStep - 1;
+    // Skip back over Niche if no experience
+    if (currentStep === 5 && selections['exp'] === 'no') {
+      target = 3;
+    }
+    
+    if (target >= 0) showStep(target);
   }
 
   // ─── VALIDATION ──────────────────────────────────────────────
@@ -933,10 +988,14 @@
     }
 
     if (step === 4) {
-      reqSel('avail', 'err-avail');
+      reqSel('niche', 'err-niche');
     }
 
     if (step === 5) {
+      reqSel('avail', 'err-avail');
+    }
+
+    if (step === 6) {
       reqSel('serious', 'err-serious');
     }
 
@@ -963,12 +1022,22 @@
     if (key === 'exp') {
       const condYes = document.getElementById('cond-yes');
       const condNo  = document.getElementById('cond-no');
-      if (val === 'yes') {
-        condYes.classList.add('visible');
-        condNo.classList.remove('visible');
-      } else {
-        condNo.classList.add('visible');
-        condYes.classList.remove('visible');
+      if (condYes && condNo) {
+        if (val === 'yes') {
+          condYes.classList.add('visible');
+          condNo.classList.remove('visible');
+        } else {
+          condNo.classList.add('visible');
+          condYes.classList.remove('visible');
+        }
+      }
+    }
+
+    if (key === 'niche') {
+      const condOther = document.getElementById('cond-niche-other');
+      if (condOther) {
+        if (val === 'Other') condOther.classList.add('visible');
+        else condOther.classList.remove('visible');
       }
     }
   }
@@ -1000,7 +1069,7 @@
 
   // ─── SUBMIT ───────────────────────────────────────────────────
   async function submitForm() {
-    if (!validateStep(5)) return;
+    if (!validateStep(6)) return;
 
     const btn = document.getElementById('btn-next');
     const originalText = btn.textContent;
@@ -1018,6 +1087,8 @@
       Motivation:  document.getElementById('motivation')?.value || '',
       'On Camera': selections['camera']  || '',
       Experience:  selections['exp']     || '',
+      Niche:       selections['niche']   || '',
+      'Niche Detail': document.getElementById('niche-other')?.value || '',
       'Hrs/Week':  document.getElementById('hours-slider')?.value || '',
       '48-72h':    selections['avail']   || '',
       Serious:     selections['serious'] || ''
