@@ -999,12 +999,11 @@
   }
 
   // ─── SUBMIT ───────────────────────────────────────────────────
-  const SHEET_URL = 'https://api.sheetbest.com/sheets/504af205-f2c9-4ff6-8955-f00a78929463';
-
   async function submitForm() {
     if (!validateStep(5)) return;
 
     const btn = document.getElementById('btn-next');
+    const originalText = btn.textContent;
     btn.textContent = 'Submitting...';
     btn.disabled = true;
 
@@ -1025,23 +1024,29 @@
     };
 
     try {
-      await fetch(SHEET_URL, {
+      const response = await fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
-    } catch (err) {
-      console.error('Sheet.best error:', err);
-    }
 
-    const app = document.getElementById('app');
-    const success = document.getElementById('success-screen');
-    app.style.opacity = '0';
-    app.style.transition = 'opacity 0.4s ease';
-    setTimeout(() => {
-      app.style.display = 'none';
-      success.classList.add('show');
-    }, 400);
+      if (!response.ok) throw new Error('Submission failed');
+
+      // Success UI Transition
+      const app = document.getElementById('app');
+      const success = document.getElementById('success-screen');
+      app.style.opacity = '0';
+      app.style.transition = 'opacity 0.4s ease';
+      setTimeout(() => {
+        app.style.display = 'none';
+        success.classList.add('show');
+      }, 400);
+
+    } catch (err) {
+      btn.textContent = 'Try Again';
+      btn.disabled = false;
+      alert('Something went wrong. Please check your connection and try again.');
+    }
   }
 
   // ─── INIT ──────────────────────────────────────────────────────

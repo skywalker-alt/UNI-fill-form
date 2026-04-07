@@ -28,3 +28,11 @@ Thumbs.db
 
 # Vercel
 .vercel
+
+# Internal AI/tool folders (not part of the project)
+skills/
+skill-creator/
+execution/
+pent/
+AGENTS.md
+directives/
