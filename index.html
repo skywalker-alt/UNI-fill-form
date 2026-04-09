@@ -930,6 +930,43 @@
 
 
 
+    
+    /* ─── COVER SCREEN ───────────────────────────────────────── */
+    #cover-screen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 24px 40px;
+      min-height: 100dvh;
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+    #cover-screen .hero__squiggle {
+      top: -10px; right: -20px;
+      width: 250px;
+      opacity: 0.15;
+    }
+    .cover-content {
+      position: relative; z-index: 10;
+      flex: 1;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .cover-footer {
+      margin-top: 30px;
+    }
+    @media (min-width: 768px) {
+      #cover-screen { min-height: 540px; padding: 60px 40px 40px; }
+    }
+    #main-form-wrap {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+
     /* ─── SUCCESS SCREEN ─────────────────────────────────────── */
 
     #success-screen {
@@ -1213,7 +1250,24 @@
 
 <div class="app" id="app">
 
+  <!-- COVER SCREEN -->
+  <div id="cover-screen">
+    <svg class="hero__squiggle" viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 180 C40 140 80 160 100 120 C120 80 80 60 110 30 C140 0 180 20 200 10" stroke="#CAFF4A" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <path d="M10 160 C30 120 70 140 90 100 C110 60 70 40 100 10" stroke="#CAFF4A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    </svg>
+    <div class="cover-content">
+      <div class="hero__tag" style="margin-bottom: 24px;"><span class="hero__tag-dot"></span> Now Recruiting</div>
+      <h1 class="hero__title" style="font-size: clamp(40px, 11vw, 54px); margin-bottom: 20px;">Become a<br /><em>Content Creator.</em></h1>
+      <p class="hero__sub" style="font-size: 15px; max-width: 380px;">We're looking for students with the spark — no experience needed, just the right energy.</p>
+    </div>
+    <div class="cover-footer">
+      <button class="btn btn-next" onclick="startApplication()" style="width: 100%; height: 64px; font-size: 16.5px; border-radius: 16px;">Apply Now →</button>
+    </div>
+  </div>
 
+  <!-- MAIN FORM WRAPPER -->
+  <div id="main-form-wrap">
 
   <!-- HERO -->
 
@@ -1669,6 +1723,8 @@
 
 
 
+  </div><!-- /main-form-wrap -->
+
 </div><!-- /app -->
 
 
@@ -1696,6 +1752,26 @@
 
 
 <script>
+
+  
+  // ─── COVER SCREEN ────────────────────────────────────────────
+  function startApplication() {
+    const cover = document.getElementById('cover-screen');
+    const mainWrap = document.getElementById('main-form-wrap');
+    
+    cover.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    cover.style.opacity = '0';
+    cover.style.transform = 'translateY(-10px)';
+    
+    setTimeout(() => {
+      cover.style.display = 'none';
+      mainWrap.style.display = 'flex';
+      
+      // Trigger reflow
+      mainWrap.offsetHeight;
+      mainWrap.style.opacity = '1';
+    }, 400);
+  }
 
   // ─── STATE ───────────────────────────────────────────────────
 
