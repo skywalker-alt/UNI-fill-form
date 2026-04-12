@@ -935,28 +935,68 @@
     #cover-screen {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 60px 24px 40px;
+      justify-content: space-between;
+      padding: 80px 32px 60px;
       min-height: 100dvh;
       background: var(--black);
       position: relative;
       overflow: hidden;
+      text-align: center;
     }
     #cover-screen .hero__squiggle {
       top: -10px; right: -20px;
-      width: 250px;
-      opacity: 0.15;
+      width: 280px;
+      opacity: 0.12;
+      filter: blur(1px);
     }
     .cover-content {
       position: relative; z-index: 10;
       flex: 1;
-      display: flex; flex-direction: column; justify-content: center;
+      display: flex; flex-direction: column; 
+      justify-content: center;
+      align-items: center;
+    }
+    #cover-screen .hero__tag {
+      width: fit-content;
+      margin: 0 auto 32px;
+      padding: 8px 16px;
+      font-size: 12px;
+      background: var(--lime);
+      color: var(--black);
+    }
+    #cover-screen .hero__title {
+      font-size: clamp(44px, 12vw, 64px);
+      line-height: 0.95;
+      margin-bottom: 24px;
+      letter-spacing: -0.04em;
+      text-transform: none;
+    }
+    #cover-screen .hero__title em {
+      display: block;
+      margin-top: 4px;
+    }
+    #cover-screen .hero__sub {
+      margin: 0 auto;
+      font-size: 15px;
+      opacity: 0.7;
+      line-height: 1.5;
     }
     .cover-footer {
-      margin-top: 30px;
+      margin-top: 40px;
+      padding-bottom: env(safe-area-inset-bottom, 20px);
+    }
+    .btn-hero {
+      background: var(--lime);
+      color: var(--black);
+      width: 100%;
+      height: 68px;
+      border-radius: 20px;
+      font-size: 18px;
+      font-weight: 800;
+      box-shadow: 0 10px 30px rgba(202, 255, 74, 0.2);
     }
     @media (min-width: 768px) {
-      #cover-screen { min-height: 540px; padding: 60px 40px 40px; }
+      #cover-screen { min-height: 640px; padding: 80px 48px 60px; }
     }
     #main-form-wrap {
       display: none;
@@ -1258,11 +1298,11 @@
     </svg>
     <div class="cover-content">
       <div class="hero__tag" style="margin-bottom: 24px;"><span class="hero__tag-dot"></span> Now Recruiting</div>
-      <h1 class="hero__title" style="font-size: clamp(40px, 11vw, 54px); margin-bottom: 20px;">Become a<br /><em>Content Creator.</em></h1>
-      <p class="hero__sub" style="font-size: 15px; max-width: 380px;">We're looking for students with the spark — no experience needed, just the right energy.</p>
+      <h1 class="hero__title">Become a<br /><em>Content Creator.</em></h1>
+      <p class="hero__sub">We're looking for students with the spark — no experience needed, just the right energy.</p>
     </div>
     <div class="cover-footer">
-      <button class="btn btn-next" onclick="startApplication()" style="width: 100%; height: 64px; font-size: 16.5px; border-radius: 16px;">Apply Now →</button>
+      <button class="btn btn-hero" onclick="startApplication()">Apply Now →</button>
     </div>
   </div>
 
@@ -1318,19 +1358,12 @@
   <div class="steps-nav" id="steps-nav">
 
     <div class="step-dot active" data-step="0"></div>
-
     <div class="step-dot" data-step="1"></div>
-
     <div class="step-dot" data-step="2"></div>
-
     <div class="step-dot" data-step="3"></div>
-
     <div class="step-dot" data-step="4"></div>
-
     <div class="step-dot" data-step="5"></div>
-
     <div class="step-dot" data-step="6"></div>
-
   </div>
 
 
@@ -1351,7 +1384,7 @@
 
       </svg>
 
-      <p class="section-num">Section 01 / 06</p>
+      <p class="section-num">Section 01 / 07</p>
 
       <h2 class="section-title">Basic <span>Info.</span></h2>
 
@@ -1421,7 +1454,7 @@
 
       </svg>
 
-      <p class="section-num">Section 02 / 06</p>
+      <p class="section-num">Section 02 / 07</p>
 
       <h2 class="section-title">Social <span>Media.</span></h2>
 
@@ -1481,7 +1514,7 @@
 
       </svg>
 
-      <p class="section-num">Section 03 / 06</p>
+      <p class="section-num">Section 03 / 07</p>
 
       <h2 class="section-title">Your <span>Why.</span></h2>
 
@@ -1539,7 +1572,7 @@
 
       </svg>
 
-      <p class="section-num">Section 04 / 06</p>
+      <p class="section-num">Section 04 / 07</p>
 
       <h2 class="section-title">Experience <span>Level.</span></h2>
 
@@ -1577,17 +1610,50 @@
 
     </div>
 
-<!-- ── SECTION 5: Availability ───────────────────────────── -->
-
+<!-- ── SECTION 5: Content Niche ───────────────────────────── -->
     <div class="section-pane" id="step-4">
-
       <svg class="squiggle-divider" viewBox="0 0 60 20" fill="none">
-
-        <path d="M2 12 C10 2 18 20 28 10 C38 0 46 18 54 10 C58 6 60 12 60 10" stroke="#CAFF4A" stroke-width="2.5" stroke-linecap="round"/>
-
+        <path d="M2 10 C14 2 22 18 32 10 C42 2 50 16 58 8" stroke="#CAFF4A" stroke-width="2.5" stroke-linecap="round"/>
       </svg>
+      <p class="section-num">Section 05 / 07</p>
+      <h2 class="section-title">Select your <span>Niche.</span></h2>
+      <p class="section-desc">What kind of content do you create? Select the one that fits best.</p>
 
-      <p class="section-num">Section 05 / 06</p>
+      <div class="field">
+        <label>Primary Content Niche <span class="req">*</span></label>
+        <div class="choices" style="grid-template-columns: 1fr 1fr; gap: 12px;">
+          <button type="button" class="choice-btn small" id="niche-lifestyle" onclick="selectChoice('niche', 'lifestyle', this)">
+            <span class="emoji">✨</span> Lifestyle
+          </button>
+          <button type="button" class="choice-btn small" id="niche-food" onclick="selectChoice('niche', 'food', this)">
+            <span class="emoji">🍕</span> Food
+          </button>
+          <button type="button" class="choice-btn small" id="niche-tech" onclick="selectChoice('niche', 'tech', this)">
+            <span class="emoji">💻</span> Tech
+          </button>
+          <button type="button" class="choice-btn small" id="niche-fitness" onclick="selectChoice('niche', 'fitness', this)">
+            <span class="emoji">💪</span> Fitness
+          </button>
+          <button type="button" class="choice-btn small" id="niche-fashion" onclick="selectChoice('niche', 'fashion', this)">
+            <span class="emoji">👗</span> Fashion
+          </button>
+          <button type="button" class="choice-btn small" id="niche-travel" onclick="selectChoice('niche', 'travel', this)">
+            <span class="emoji">✈️</span> Travel
+          </button>
+          <button type="button" class="choice-btn small" id="niche-other" onclick="selectChoice('niche', 'other', this)">
+            <span class="emoji">🌈</span> Other
+          </button>
+        </div>
+        <div class="field-error" id="err-niche">Please select your primary niche.</div>
+      </div>
+    </div>
+
+<!-- ── SECTION 6: Availability ───────────────────────────── -->
+    <div class="section-pane" id="step-5">
+      <svg class="squiggle-divider" viewBox="0 0 60 20" fill="none">
+        <path d="M2 12 C10 2 18 20 28 10 C38 0 46 18 54 10 C58 6 60 12 60 10" stroke="#CAFF4A" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <p class="section-num">Section 06 / 07</p>
 
       <h2 class="section-title">Your <span>Time.</span></h2>
 
@@ -1647,15 +1713,11 @@
 
     <!-- ── SECTION 7: Final Confirmation ────────────────────── -->
 
-    <div class="section-pane" id="step-5">
-
+    <div class="section-pane" id="step-6">
       <svg class="squiggle-divider" viewBox="0 0 60 20" fill="none">
-
         <path d="M2 10 C14 20 20 2 30 12 C40 22 46 4 56 14 C58 16 60 14 60 12" stroke="#CAFF4A" stroke-width="2.5" stroke-linecap="round"/>
-
       </svg>
-
-      <p class="section-num">Section 06 / 06</p>
+      <p class="section-num">Section 07 / 07</p>
 
       <h2 class="section-title">Are You <span>Ready?</span></h2>
 
@@ -1775,7 +1837,7 @@
 
   // ─── STATE ───────────────────────────────────────────────────
 
-  const totalSteps = 6;
+  const totalSteps = 7;
 
   let currentStep  = 0;
 
@@ -1870,45 +1932,25 @@
 
 
   function nextStep() {
-
     if (!validateStep(currentStep)) return;
-
     
-
     let target = currentStep + 1;
-
     // Skip Niche if no experience
-
     if (currentStep === 3 && selections['exp'] === 'no') {
-
-      target = 5;
-
+      target = 5; // Jump to Availability
     }
-
     
-
     if (target < totalSteps) showStep(target);
-
   }
 
-
-
   function prevStep() {
-
     let target = currentStep - 1;
-
     // Skip back over Niche if no experience
-
     if (currentStep === 5 && selections['exp'] === 'no') {
-
-      target = 3;
-
+      target = 3; // Back to Experience
     }
-
     
-
     if (target >= 0) showStep(target);
-
   }
 
 
@@ -1990,14 +2032,20 @@
 
 
     if (step === 3) {
-
       reqSel('exp', 'err-exp');
-
     }
 
-
-
     if (step === 4) {
+      reqSel('niche', 'err-niche');
+    }
+
+    if (step === 5) {
+      reqSel('avail', 'err-avail');
+    }
+
+    if (step === 6) {
+      reqSel('serious', 'err-serious');
+    }
 
       reqSel('avail', 'err-avail');
 

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Creator Recruitment – Video Submission</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300..500;1,300..500&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="video-submission.css" />
+</head>
+<body>
+  <div class="app" id="video-screen">
+    <!-- Hero Header -->
+    <header class="hero--video">
+      <svg class="hero__squiggle" viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 180 C40 140 80 160 100 120 C120 80 80 60 110 30 C140 0 180 20 200 10" stroke="#CAFF4A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M10 160 C30 120 70 140 90 100 C110 60 70 40 100 10" stroke="#CAFF4A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      </svg>
+      <div class="hero__tag"><span class="hero__tag-dot"></span> Submission</div>
+      <h1 class="hero__title">Upload <em>Video.</em></h1>
+      <p class="hero__sub">Please submit your video entry and provide the required metadata below.</p>
+    </header>
+
+    <!-- Progress Indicator -->
+    <div class="progress-wrap">
+      <div class="progress-header">
+        <span class="progress-label">Upload Progress</span>
+        <span class="progress-count" id="progressPercentage">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- Form Body -->
+    <div class="form-body--video">
+      <form id="videoForm">
+        
+        <!-- Video Upload Zone -->
+        <div class="field">
+          <label>Select Video File <span class="req">*</span></label>
+          <div class="upload-zone" id="uploadZone">
+            <div class="upload-icon">📁</div>
+            <h4 id="uploadZoneTitle">Click or drag a video file here</h4>
+            <p id="uploadZoneDesc">Max 500MB (MP4, MOV, WebM)</p>
+            <input type="file" id="videoFile" name="videoFile" accept="video/mp4,video/quicktime,video/webm" required />
+          </div>
+        </div>
+
+        <div class="or-divider"><span>Details</span></div>
+
+        <div class="field">
+          <label for="fullName">Full Name <span class="req">*</span></label>
+          <input type="text" id="fullName" name="fullName" placeholder="Jane Doe" required />
+        </div>
+
+        <div class="field">
+          <label for="phoneNumber">Phone Number <span class="req">*</span></label>
+          <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+1 234 567 8900" required />
+        </div>
+
+        <button type="submit" class="btn-submit-video" id="submitBtn">
+          <span class="btn-text">Submit Video ✓</span>
+        </button>
+
+        <div id="statusMessage" class="status-message"></div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Vercel Blob SDK for client uploads -->
+  <script type="module">
+    import { upload } from 'https://esm.sh/@vercel/blob@0.23.4/client';
+    window.vercelBlob = { upload };
+  </script>
+  <script src="video-submission.js" defer></script>
+</body>
+</html>

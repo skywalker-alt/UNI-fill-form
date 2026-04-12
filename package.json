@@ -5,5 +5,9 @@
   "description": "Creator recruitment form for university students",
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.103.0",
+    "@vercel/blob": "^2.3.3"
   }
 }
