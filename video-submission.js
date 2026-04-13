@@ -95,8 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const methodEl = document.querySelector('input[name="submissionMethod"]:checked');
     const method = methodEl ? methodEl.value : 'upload';
     
-    const contentTypeEl = document.querySelector('input[name="contentType"]:checked');
-    const contentType = contentTypeEl ? contentTypeEl.value : '';
+    const contentType = document.getElementById('contentType').value;
     
     let finalVideoUrl = '';
 

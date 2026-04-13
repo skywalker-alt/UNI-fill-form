@@ -85,30 +85,13 @@
 
         <!-- Content Type Selection -->
         <div class="field">
-          <label>Content Type <span class="req">*</span></label>
-          <div class="content-type-grid">
-            <label class="type-option">
-              <input type="radio" name="contentType" value="ugc" required />
-              <div class="type-card">
-                <strong>UGC</strong>
-                <span>Natural brand-style content</span>
-              </div>
-            </label>
-            <label class="type-option">
-              <input type="radio" name="contentType" value="lifestyle" />
-              <div class="type-card">
-                <strong>Lifestyle</strong>
-                <span>Storytelling / lifestyle reel</span>
-              </div>
-            </label>
-            <label class="type-option">
-              <input type="radio" name="contentType" value="showcase" />
-              <div class="type-card">
-                <strong>Showcase</strong>
-                <span>Product, place, or experience</span>
-              </div>
-            </label>
-          </div>
+          <label for="contentType">Content Type <span class="req">*</span></label>
+          <select id="contentType" name="contentType" required>
+            <option value="" disabled selected>Select content type...</option>
+            <option value="ugc">UGC / natural brand-style content</option>
+            <option value="lifestyle">Storytelling / lifestyle reel</option>
+            <option value="showcase">Showcase-style video for a product, place, or experience</option>
+          </select>
         </div>
 
         <button type="submit" class="btn-submit-video" id="submitBtn">
