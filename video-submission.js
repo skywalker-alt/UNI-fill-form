@@ -12,6 +12,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let selectedFile = null;
 
+  // -- Submission Method Toggle logic --
+  const uploadSection = document.getElementById('uploadSection');
+  const urlSection = document.getElementById('urlSection');
+  const methodRadios = document.getElementsByName('submissionMethod');
+  const videoUrlInput = document.getElementById('videoUrl');
+
+  if (methodRadios.length > 0) {
+    methodRadios.forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        if (e.target.value === 'upload') {
+          uploadSection.classList.remove('hidden');
+          urlSection.classList.add('hidden');
+          videoUrlInput.required = false;
+          fileInput.required = true;
+        } else {
+          uploadSection.classList.add('hidden');
+          urlSection.classList.remove('hidden');
+          videoUrlInput.required = true;
+          fileInput.required = false;
+        }
+      });
+    });
+  }
+
   // -- Event Listeners for File Drag & Drop --
   uploadZone.addEventListener('dragover', (e) => {
     e.preventDefault();
@@ -68,34 +92,47 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    if (!selectedFile) {
-      showStatus('Please select a video file to upload.', 'error');
-      return;
+    const methodEl = document.querySelector('input[name="submissionMethod"]:checked');
+    const method = methodEl ? methodEl.value : 'upload';
+    
+    const contentTypeEl = document.querySelector('input[name="contentType"]:checked');
+    const contentType = contentTypeEl ? contentTypeEl.value : '';
+    
+    let finalVideoUrl = '';
+
+    if (method === 'upload') {
+      if (!selectedFile) {
+        showStatus('Please select a video file to upload.', 'error');
+        return;
+      }
+    } else {
+      finalVideoUrl = videoUrlInput.value.trim();
+      if (!finalVideoUrl) {
+        showStatus('Please enter a valid video URL.', 'error');
+        return;
+      }
     }
 
     // Disable UI
     submitBtn.disabled = true;
-    btnText.textContent = 'Uploading...';
+    btnText.textContent = method === 'upload' ? 'Uploading...' : 'Submitting...';
     showStatus('', '');
 
     try {
-      // 1. Upload video to Vercel Blob
-      // We use the browser client from @vercel/blob injected via CDN.
-      // It talks to our api/upload.js to get a signed token natively.
-      const newBlob = await window.vercelBlob.upload(selectedFile.name, selectedFile, {
-        access: 'public',
-        handleUploadUrl: '/api/upload', // our backend endpoint that generates tokens
-        multipart: true, // 🚀 Enable parallel multipart uploads for speed
-        onUploadProgress: (progressEvent) => {
-          const percent = Math.round((progressEvent.loaded / progressEvent.total) * 100);
-          progressBar.style.width = percent + '%';
-          progressPercentage.textContent = percent + '%';
-        }
-      });
-
-
-      // Public URL of the uploaded video
-      const fileUrl = newBlob.url;
+      if (method === 'upload') {
+        // 1. Upload video to Vercel Blob
+        const newBlob = await window.vercelBlob.upload(selectedFile.name, selectedFile, {
+          access: 'public',
+          handleUploadUrl: '/api/upload',
+          multipart: true,
+          onUploadProgress: (progressEvent) => {
+            const percent = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+            progressBar.style.width = percent + '%';
+            progressPercentage.textContent = percent + '%';
+          }
+        });
+        finalVideoUrl = newBlob.url;
+      }
 
       btnText.textContent = 'Saving Details...';
 
@@ -103,7 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const metadataParams = {
         fullName: document.getElementById('fullName').value,
         phoneNumber: document.getElementById('phoneNumber').value,
-        videoUrl: fileUrl
+        contentType: contentType,
+        videoUrl: finalVideoUrl
       };
 
       const res = await fetch('/api/submit-video-metadata', {
@@ -116,6 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       showStatus('Submission successful! Thank you.', 'success');
       form.reset();
+      
+      // Reset State
       selectedFile = null;
       uploadZone.classList.remove('has-file');
       uploadZoneTitle.textContent = 'Click or drag a video file here';
@@ -123,6 +163,10 @@ document.addEventListener('DOMContentLoaded', () => {
       progressBar.style.width = '0%';
       progressPercentage.textContent = '0%';
       btnText.textContent = 'Submit Video';
+
+      // Restore default visibility
+      if (uploadSection) uploadSection.classList.remove('hidden');
+      if (urlSection) urlSection.classList.add('hidden');
 
     } catch (error) {
       console.error(error);

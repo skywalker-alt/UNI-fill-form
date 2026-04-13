@@ -39,15 +39,36 @@
     <div class="form-body--video">
       <form id="videoForm">
         
-        <!-- Video Upload Zone -->
+        <!-- Submission Method Selector -->
         <div class="field">
+          <label>How would you like to provide the video? <span class="req">*</span></label>
+          <div class="method-selector">
+            <label class="method-option">
+              <input type="radio" name="submissionMethod" value="upload" checked />
+              <span>Upload File</span>
+            </label>
+            <label class="method-option">
+              <input type="radio" name="submissionMethod" value="url" />
+              <span>Paste URL</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Video Upload Zone (Conditional) -->
+        <div class="field" id="uploadSection">
           <label>Select Video File <span class="req">*</span></label>
           <div class="upload-zone" id="uploadZone">
             <div class="upload-icon">📁</div>
             <h4 id="uploadZoneTitle">Click or drag a video file here</h4>
             <p id="uploadZoneDesc">Max 500MB (MP4, MOV, WebM)</p>
-            <input type="file" id="videoFile" name="videoFile" accept="video/mp4,video/quicktime,video/webm" required />
+            <input type="file" id="videoFile" name="videoFile" accept="video/mp4,video/quicktime,video/webm" />
           </div>
+        </div>
+
+        <!-- Video URL Input (Conditional) -->
+        <div class="field hidden" id="urlSection">
+          <label for="videoUrl">Paste Video URL <span class="req">*</span></label>
+          <input type="url" id="videoUrl" name="videoUrl" placeholder="https://vimeo.com/..." />
         </div>
 
         <div class="or-divider"><span>Details</span></div>
@@ -60,6 +81,34 @@
         <div class="field">
           <label for="phoneNumber">Phone Number <span class="req">*</span></label>
           <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+1 234 567 8900" required />
+        </div>
+
+        <!-- Content Type Selection -->
+        <div class="field">
+          <label>Content Type <span class="req">*</span></label>
+          <div class="content-type-grid">
+            <label class="type-option">
+              <input type="radio" name="contentType" value="ugc" required />
+              <div class="type-card">
+                <strong>UGC</strong>
+                <span>Natural brand-style content</span>
+              </div>
+            </label>
+            <label class="type-option">
+              <input type="radio" name="contentType" value="lifestyle" />
+              <div class="type-card">
+                <strong>Lifestyle</strong>
+                <span>Storytelling / lifestyle reel</span>
+              </div>
+            </label>
+            <label class="type-option">
+              <input type="radio" name="contentType" value="showcase" />
+              <div class="type-card">
+                <strong>Showcase</strong>
+                <span>Product, place, or experience</span>
+              </div>
+            </label>
+          </div>
         </div>
 
         <button type="submit" class="btn-submit-video" id="submitBtn">

@@ -14,10 +14,10 @@ export default async function handler(request, response) {
     return response.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { fullName, phoneNumber, videoUrl } = request.body;
+  const { fullName, phoneNumber, videoUrl, contentType } = request.body;
 
-  if (!fullName || !phoneNumber || !videoUrl) {
-    return response.status(400).json({ error: 'Missing required fields: fullName, phoneNumber, or videoUrl' });
+  if (!fullName || !phoneNumber || !videoUrl || !contentType) {
+    return response.status(400).json({ error: 'Missing required fields: fullName, phoneNumber, videoUrl, or contentType' });
   }
 
   try {
@@ -27,7 +27,8 @@ export default async function handler(request, response) {
         { 
           full_name: fullName, 
           phone_number: phoneNumber, 
-          video_url: videoUrl 
+          video_url: videoUrl,
+          content_type: contentType
         }
       ]);
 

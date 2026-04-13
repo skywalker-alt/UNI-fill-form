@@ -353,3 +353,85 @@ body::before {
   color: #d32f2f;
   border: 1px solid #ffcdd2;
 }
+
+/* ─── NEW FORM ELEMENTS ───────────────────────────────────── */
+
+.hidden { display: none !important; }
+
+/* METHOD SELECTOR (Segmented Control) */
+.method-selector {
+  display: flex;
+  background: var(--grey);
+  padding: 4px;
+  border-radius: 12px;
+  gap: 4px;
+}
+.method-option {
+  flex: 1;
+  cursor: pointer;
+  position: relative;
+}
+.method-option input {
+  position: absolute; opacity: 0; width: 0; height: 0;
+}
+.method-option span {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #666;
+  border-radius: 9px;
+  transition: all 0.2s ease;
+}
+.method-option input:checked + span {
+  background: var(--black);
+  color: var(--lime);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* CONTENT TYPE GRID */
+.content-type-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.type-option {
+  cursor: pointer;
+  position: relative;
+}
+.type-option input {
+  position: absolute; opacity: 0; width: 0; height: 0;
+}
+.type-card {
+  padding: 16px;
+  background: var(--grey);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.type-option input:checked + .type-card {
+  border-color: var(--lime);
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(202, 255, 74, 0.1);
+}
+.type-card strong {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  color: var(--black);
+  text-transform: uppercase;
+}
+.type-card span {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.4;
+}
+.type-option:hover .type-card {
+  border-color: #D0D0C8;
+}
+.type-option input:checked:hover + .type-card {
+  border-color: var(--lime);
+}
